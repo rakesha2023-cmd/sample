@@ -1,39 +1,45 @@
 library = {}
 
+print("---- Library Management System ----")
+
 while True:
-    print("1.Add 2.Display 3.Issue 4.Return 5.Exit")
-    ch = input("Choice: ")
+    print("\n1.Add  2.Display  3.Issue  4.Return  5.Exit")
+    ch = input("Enter choice: ")
 
     if ch == "1":
-        bid = input("Book ID: ")
-        name = input("Book Name: ")
+        bid = input("Enter Book ID: ")
+        name = input("Enter Book Name: ")
         library[bid] = [name, False]
-        print("Book Added\n")
+        print("Book added successfully")
 
     elif ch == "2":
-        for b in library:
-            status = "Issued" if library[b][1] else "Available"
-            print(b, library[b][0], status)
-        print()
+        if not library:
+            print("Library is empty")
+        else:
+            print("\nID   Name        Status")
+            for b in library:
+                status = "Issued" if library[b][1] else "Available"
+                print(b, library[b][0], status)
 
     elif ch == "3":
-        bid = input("Book ID: ")
+        bid = input("Enter Book ID to issue: ")
         if bid in library and not library[bid][1]:
             library[bid][1] = True
-            print("Book Issued\n")
+            print("Book issued successfully")
         else:
-            print("Not Available\n")
+            print("Book not available or not found")
 
     elif ch == "4":
-        bid = input("Book ID: ")
+        bid = input("Enter Book ID to return: ")
         if bid in library and library[bid][1]:
             library[bid][1] = False
-            print("Book Returned\n")
+            print("Book returned successfully")
         else:
-            print("Invalid\n")
+            print("Invalid book ID or book not issued")
 
     elif ch == "5":
+        print("Exiting program...")
         break
 
     else:
-        print("Wrong Choice\n")
+        print("Invalid choice, try again")
