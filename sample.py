@@ -8,23 +8,29 @@ while True:
 
     if ch == "1":
         bid = input("Enter Book ID: ")
-        name = input("Enter Book Name: ")
-        library[bid] = [name, False]
-        print("Book added successfully")
+        if bid in library:
+            print("Book ID already exists")
+        else:
+            name = input("Enter Book Name: ")
+            library[bid] = [name, False, ""]
+            print("Book added successfully")
 
     elif ch == "2":
         if not library:
             print("Library is empty")
         else:
-            print("\nID   Name        Status")
+            print("\nID   Name        Status      Issued To")
             for b in library:
                 status = "Issued" if library[b][1] else "Available"
-                print(b, library[b][0], status)
+                issued_to = library[b][2] if library[b][1] else "-"
+                print(b, library[b][0], status, issued_to)
 
     elif ch == "3":
         bid = input("Enter Book ID to issue: ")
         if bid in library and not library[bid][1]:
+            student = input("Enter Student Name: ")
             library[bid][1] = True
+            library[bid][2] = student
             print("Book issued successfully")
         else:
             print("Book not available or not found")
@@ -33,6 +39,7 @@ while True:
         bid = input("Enter Book ID to return: ")
         if bid in library and library[bid][1]:
             library[bid][1] = False
+            library[bid][2] = ""
             print("Book returned successfully")
         else:
             print("Invalid book ID or book not issued")
